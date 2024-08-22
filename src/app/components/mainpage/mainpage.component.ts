@@ -1,3 +1,4 @@
+import { CartItemsComponent } from './../cart-items/cart-items.component';
 import { Component } from '@angular/core';
 import { DataServiceService } from '../../services/data-service.service';
 import { IData,ImageSources } from '../../interfaces/InterfaceData';
@@ -7,7 +8,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-mainpage',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,CartItemsComponent],
   templateUrl: './mainpage.component.html',
   styleUrl: './mainpage.component.css'
 })
@@ -70,17 +71,7 @@ export class MainpageComponent {
   }
 
 
-  getCartItemsCount(): number {
-    return Object.values(this.cartItems).reduce((total, item) => total + item.quantity, 0);
-  }
-
-  getOrderTotal(): number {
-    return Object.values(this.cartItems).reduce((total, item) => total + (item.quantity * item.price), 0);
-  }
-
-  getCartItemsArray(): [string, { quantity: number, price: number }][] {
-    return Object.entries(this.cartItems);
-  }
+ 
 }
 
 
