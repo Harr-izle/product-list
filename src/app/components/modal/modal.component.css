@@ -1,0 +1,22 @@
+.main-container{
+    background-color: var(--black);
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.modal{
+    height: fit-content;
+    width: 30%;
+    padding: 1rem;
+    background-color: var(--white);
+    border: none;
+    border-radius: 1rem;
+}
+
+.top-section{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
