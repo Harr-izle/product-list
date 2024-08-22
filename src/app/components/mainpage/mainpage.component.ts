@@ -1,16 +1,20 @@
 import { Component } from '@angular/core';
 import { DataServiceService } from '../../services/data-service.service';
 import { IData,ImageSources } from '../../interfaces/InterfaceData';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-mainpage',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './mainpage.component.html',
   styleUrl: './mainpage.component.css'
 })
 export class MainpageComponent {
    desserts: IData[] = [];
+   cartItems: { [key: string]: { quantity: number, price: number } } = {};
+   
   
 
   constructor(public service: DataServiceService) {
@@ -35,6 +39,47 @@ export class MainpageComponent {
       ${image.tablet} 768w,
       ${image.desktop} 1440w
     `;
+  }
+
+  addToCart(dessert: IData): void {
+    if (this.cartItems[dessert.name]) {
+      this.cartItems[dessert.name].quantity++;
+    } else {
+      this.cartItems[dessert.name] = { quantity: 1, price: dessert.price };
+    }
+  }
+
+  increaseQuantity(dessert: IData): void {
+    if (this.cartItems[dessert.name]) {
+      this.cartItems[dessert.name].quantity++;
+    }
+  }
+
+  decreaseQuantity(dessert: IData): void {
+    if (this.cartItems[dessert.name]) {
+      if (this.cartItems[dessert.name].quantity > 1) {
+        this.cartItems[dessert.name].quantity--;
+      } else {
+        this.removeFromCart(dessert.name);
+      }
+    }
+  }
+
+  removeFromCart(dessertName: string): void {
+    delete this.cartItems[dessertName];
+  }
+
+
+  getCartItemsCount(): number {
+    return Object.values(this.cartItems).reduce((total, item) => total + item.quantity, 0);
+  }
+
+  getOrderTotal(): number {
+    return Object.values(this.cartItems).reduce((total, item) => total + (item.quantity * item.price), 0);
+  }
+
+  getCartItemsArray(): [string, { quantity: number, price: number }][] {
+    return Object.entries(this.cartItems);
   }
 }
 
