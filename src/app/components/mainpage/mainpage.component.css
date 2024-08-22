@@ -44,9 +44,9 @@
     position: relative;
 }
 .product img{
-    width: 15.625rem;
-    height: 15rem;
-    object-fit: cover;
+    width: 100%;
+  height: auto;
+  max-width: 100%;
     border-radius: 0.5rem;
 }
 .image.border-active img {
@@ -153,7 +153,18 @@
 
 /* mobile view */
 @media screen and (max-width: 580px) {
+    .products-section{
+        display: flex;
+        flex-direction: column;
+    }
+
+    #products{
+        display: flex;
+        flex-direction: column;
+        
+    }
+    
     
 }
-
+ 
 

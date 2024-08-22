@@ -36,9 +36,17 @@ export class MainpageComponent {
 
   getSrcSet(image: ImageSources): string {
     return `
-      ${image.mobile} 375w,
+      ${image.mobile} 580w,
       ${image.tablet} 768w,
       ${image.desktop} 1440w
+    `;
+  }
+
+  getSizes(): string {
+    return `
+      (max-width: 767px) 580px,
+      (min-width: 768px) and (max-width: 1439px) 768px,
+      1440px
     `;
   }
 

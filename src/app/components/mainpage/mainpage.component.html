@@ -8,9 +8,10 @@
           <div class="image-btn">
             <div class="image" [ngClass]="{'border-active': cartItems[dessert.name]}">
               <img
-                [src]="dessert.image.mobile"
-                [srcset]="getSrcSet(dessert.image)"
-                [alt]="dessert.name"
+              [src]="dessert.image.mobile" 
+              [srcset]="getSrcSet(dessert.image)"
+              [sizes]="getSizes()"
+              [alt]="dessert.name"
               />
             </div>
             <div class="add-to-cart">
