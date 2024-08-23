@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { IData } from '../interfaces/InterfaceData';
+import { IData, ImageSources } from '../interfaces/InterfaceData';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  private cartItemsSubject = new BehaviorSubject<{ [key: string]: { quantity: number, price: number } }>({});
+  private cartItemsSubject = new BehaviorSubject<{ [key: string]: { quantity: number, price: number, image: ImageSources } }>({});
   cartItems$ = this.cartItemsSubject.asObservable();
 
 
@@ -17,10 +17,15 @@ export class CartService {
     if (currentCart[dessert.name]) {
       currentCart[dessert.name].quantity++;
     } else {
-      currentCart[dessert.name] = { quantity: 1, price: dessert.price };
+      currentCart[dessert.name] = { 
+        quantity: 1, 
+        price: dessert.price,
+        image: dessert.image 
+      };
     }
     this.cartItemsSubject.next(currentCart);
   }
+
 
   removeFromCart(dessertName: string): void {
     const currentCart = this.cartItemsSubject.value;
@@ -52,7 +57,7 @@ export class CartService {
     this.cartItemsSubject.next({});
   }
 
-  getCurrentCartItems(): { [key: string]: { quantity: number, price: number } } {
+  getCurrentCartItems(): { [key: string]: { quantity: number, price: number, image: ImageSources } } {
     return this.cartItemsSubject.value;
   }
 

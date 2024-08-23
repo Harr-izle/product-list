@@ -4,7 +4,8 @@
         <h5>Your Cart ({{ getCartItemsCount() }})</h5>
         @if(getCartItemsCount() > 0){
         <div id="cart-items">
-          @for(item of getCartItemsArray(); track item[0]){
+       <div class="cart-items-items">
+        @for(item of getCartItemsArray(); track item[0]){
           <div class="item">
             <div class="title">
               <h6>{{ item[0] }}</h6>
@@ -30,6 +31,7 @@
           </div>
           <div class="divider"></div>
           }
+       </div>
   
           <div class="order-details">
             <p>Order Total</p>

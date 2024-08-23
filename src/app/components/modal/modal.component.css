@@ -12,6 +12,7 @@
   border: none;
   border-radius: 1rem;
   margin-top: 2rem;
+
 }
 
 .top-section {
@@ -58,14 +59,13 @@
 .item {
   display: flex;
   flex-direction: row;
-  gap: 1.5rem;
-  
+  gap: 1rem; 
 }
-.image {
-  background-color: blue;
-  width: 4rem;
-  height: 4rem;
-  border-radius: 1rem;
+
+.image img {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 0.5rem;
 }
 
 .ordered-items {
