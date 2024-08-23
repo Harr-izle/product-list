@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
-import { IData } from '../../interfaces/InterfaceData';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { CartService } from '../../services/cart-service.service';
+import { ModalServiceService } from '../../services/modal-service.service';
 
 @Component({
   selector: 'app-cart-items',
@@ -9,9 +10,26 @@ import { IData } from '../../interfaces/InterfaceData';
   styleUrl: './cart-items.component.css'
 })
 export class CartItemsComponent {
-  @Input() cartItems: { [key: string]: { quantity: number, price: number } } = {};
-  @Input() removeFromCart: (dessertName: string) => void = () => {};
-   
+  cartItems: { [key: string]: { quantity: number, price: number } } = {};
+ @Output() modal:EventEmitter<boolean> = new EventEmitter();
+  isModal:boolean=false;
+
+  constructor(public cartService: CartService, public modalService: ModalServiceService) {}
+
+  ngOnInit() {
+    this.cartService.cartItems$.subscribe(items => {
+      this.cartItems = items;
+    });
+  }
+openModal(){
+  this.modalService.openModal();
+  this.isModal=true;
+  this.modal.emit(this.isModal);
+}
+  removeFromCart(dessertName: string): void {
+    this.cartService.removeFromCart(dessertName);
+  }
+
    
   getCartItemsCount(): number {
     return Object.values(this.cartItems).reduce((total, item) => total + item.quantity, 0);

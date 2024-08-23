@@ -1,5 +1,8 @@
-<!-- <app-modal/> -->
- <div class="container">
-    <!-- <app-mainpage/> -->
-    <app-modal/>
+
+ <div [style.overflow]=" modalService.isOpened ? 'hidden' : 'auto'" class="container">
+    <app-mainpage/>
+@if(modalService.isOpened){
+   <app-modal/>
+}
+    
  </div>

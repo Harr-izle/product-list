@@ -1,4 +1,3 @@
-// cart.service.ts
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { IData } from '../interfaces/InterfaceData';
@@ -9,6 +8,9 @@ import { IData } from '../interfaces/InterfaceData';
 export class CartService {
   private cartItemsSubject = new BehaviorSubject<{ [key: string]: { quantity: number, price: number } }>({});
   cartItems$ = this.cartItemsSubject.asObservable();
+
+
+  constructor() { }
 
   addToCart(dessert: IData): void {
     const currentCart = this.cartItemsSubject.value;
@@ -49,4 +51,13 @@ export class CartService {
   clearCart(): void {
     this.cartItemsSubject.next({});
   }
+
+  getCurrentCartItems(): { [key: string]: { quantity: number, price: number } } {
+    return this.cartItemsSubject.value;
+  }
+
+  getOrderTotal(): number {
+    return Object.values(this.cartItemsSubject.value).reduce((total, item) => total + (item.quantity * item.price), 0);
+  }
+
 }

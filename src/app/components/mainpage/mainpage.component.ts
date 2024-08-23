@@ -1,8 +1,9 @@
 import { CartItemsComponent } from './../cart-items/cart-items.component';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { DataServiceService } from '../../services/data-service.service';
 import { IData,ImageSources } from '../../interfaces/InterfaceData';
 import { CommonModule } from '@angular/common';
+import { CartService } from '../../services/cart-service.service';
 
 
 @Component({
@@ -13,15 +14,17 @@ import { CommonModule } from '@angular/common';
   styleUrl: './mainpage.component.css'
 })
 export class MainpageComponent {
-   desserts: IData[] = [];
-   cartItems: { [key: string]: { quantity: number, price: number } } = {};
-   
+  desserts: IData[] = [];
+  cartItems: { [key: string]: { quantity: number, price: number } } = {};
+
+
+  
   
 
-  constructor(public service: DataServiceService) {
-
-   }
-
+  constructor(
+    public service: DataServiceService,
+    public cartService: CartService
+  ) { }
 
   ngOnInit() {
     this.service.queryData().subscribe(
@@ -32,8 +35,11 @@ export class MainpageComponent {
         console.error('Error fetching data:', error);
       }
     );
-  }
 
+    this.cartService.cartItems$.subscribe(items => {
+      this.cartItems = items;
+    });
+  }
   getSrcSet(image: ImageSources): string {
     return `
       ${image.mobile} 580w,
@@ -51,35 +57,29 @@ export class MainpageComponent {
   }
 
   addToCart(dessert: IData): void {
-    if (this.cartItems[dessert.name]) {
-      this.cartItems[dessert.name].quantity++;
-    } else {
-      this.cartItems[dessert.name] = { quantity: 1, price: dessert.price };
-    }
+    this.cartService.addToCart(dessert);
   }
 
   increaseQuantity(dessert: IData): void {
-    if (this.cartItems[dessert.name]) {
-      this.cartItems[dessert.name].quantity++;
-    }
+    this.cartService.increaseQuantity(dessert);
   }
 
   decreaseQuantity(dessert: IData): void {
-    if (this.cartItems[dessert.name]) {
-      if (this.cartItems[dessert.name].quantity > 1) {
-        this.cartItems[dessert.name].quantity--;
-      } else {
-        this.removeFromCart(dessert.name);
-      }
-    }
+    this.cartService.decreaseQuantity(dessert);
   }
 
   removeFromCart(dessertName: string): void {
-    delete this.cartItems[dessertName];
+    this.cartService.removeFromCart(dessertName);
   }
 
 
  
 }
+
+
+
+
+
+
 
 

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ModalComponent } from './components/modal/modal.component';
 import { MainpageComponent } from "./components/mainpage/mainpage.component";
+import { ModalServiceService } from './services/modal-service.service';
 
 @Component({
   selector: 'app-root',
@@ -12,4 +13,13 @@ import { MainpageComponent } from "./components/mainpage/mainpage.component";
 })
 export class AppComponent {
   title = 'my-product';
+
+  
+
+ 
+
+  constructor(
+    public modalService: ModalServiceService){}
+
+    
 }

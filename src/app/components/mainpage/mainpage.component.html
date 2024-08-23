@@ -82,6 +82,9 @@
         }
       </div>
     </div>
-<app-cart-items [cartItems]="cartItems" [removeFromCart]="removeFromCart"/>
+    @if("modalService.isOpened"){
+      <app-cart-items />
+    }
+
   </div>
 </div>
