@@ -5,6 +5,7 @@ import { IData, ImageSources } from '../interfaces/InterfaceData';
 @Injectable({
   providedIn: 'root'
 })
+
 export class CartService {
   private cartItemsSubject = new BehaviorSubject<{ [key: string]: { quantity: number, price: number, image: ImageSources } }>({});
   cartItems$ = this.cartItemsSubject.asObservable();
