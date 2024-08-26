@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
 import { CartService } from '../../services/cart-service.service';
 import { ModalServiceService } from '../../services/modal-service.service';
 
@@ -41,6 +41,27 @@ openModal(){
 
   getCartItemsArray(): [string, { quantity: number, price: number }][] {
     return Object.entries(this.cartItems);
+  }
+
+  // handle keydown
+  @HostListener('window:keydown.enter', ['$event'])
+  handleKeydown(event: KeyboardEvent) {
+    if (event.key === 'Enter') {
+      if (this.getCartItemsCount() > 0) { 
+        this.openModal();
+      }
+      event.preventDefault();
+    }
+  }
+  
+  // handle click
+  @HostListener('document:click', ['$event'])
+  handleclick(event: Event) {
+    if (event.target === document.querySelector('.modal')) {
+      this.modalService.closeModal();
+      this.isModal=false;
+      this.modal.emit(this.isModal);
+    }
   }
 
 }

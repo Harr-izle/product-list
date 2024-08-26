@@ -9,6 +9,8 @@ import { IData, ImageSources } from '../interfaces/InterfaceData';
 export class CartService {
   private cartItemsSubject = new BehaviorSubject<{ [key: string]: { quantity: number, price: number, image: ImageSources } }>({});
   cartItems$ = this.cartItemsSubject.asObservable();
+  isAdded = false;
+ 
 
 
   constructor() { }
@@ -25,6 +27,7 @@ export class CartService {
       };
     }
     this.cartItemsSubject.next(currentCart);
+    this.isAdded = true;
   }
 
 

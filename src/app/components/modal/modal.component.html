@@ -1,5 +1,5 @@
 @if(modalService.isOpened){
-    <div class="main-container">
+    <div class="main-container" (click)="handleclick($event)">
         <div class="modal">
           <div class="top-section">
             <svg
@@ -53,7 +53,7 @@
           </div>
       
           <div class="new-order">
-            <button id="btn-new-order" (click)="startNewOrder()">
+            <button id="btn-new-order" (click)="startNewOrder()" (keydown)="handleKeydown($event)">
               Start New Order
             </button>
           </div>
