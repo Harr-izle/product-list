@@ -1,5 +1,5 @@
 import { CartItemsComponent } from './../cart-items/cart-items.component';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Output } from '@angular/core';
 import { DataServiceService } from '../../services/data-service.service';
 import { IData,ImageSources } from '../../interfaces/InterfaceData';
 import { CommonModule } from '@angular/common';

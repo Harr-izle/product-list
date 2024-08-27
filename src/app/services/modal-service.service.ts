@@ -6,6 +6,9 @@ import { ImageSources } from '../interfaces/InterfaceData';
   providedIn: 'root'
 })
 export class ModalServiceService {
+  closeModal() {
+    throw new Error('Method not implemented.');
+  }
   isOpened: boolean = false;
   cartItems: { [key: string]: { quantity: number, price: number, image: ImageSources } } = {};
   orderTotal: number = 0;
